@@ -105,7 +105,7 @@ void Mansion::build()
                             "\"To whoever comes next: if you are reading this, I never got to leave.\n"
                             " This house keeps its secrets well, but it remembers. Look closely at\n"
                             " what I left behind.  - Eleanor\"",
-                            FLAG_LETTER_READ // Flag);
+                            FLAG_LETTER_READ); // Flag
     Item* photograph = new Item(ITEM_PHOTOGRAPH,
                                 "a faded photograph of a woman in a garden",
                                 "On the back, in faded ink: \"Our last spring - 17/04/1987\"",

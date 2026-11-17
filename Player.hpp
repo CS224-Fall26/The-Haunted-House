@@ -26,7 +26,7 @@ class Player
 
         Inventory& getInventory(); // lets us ADD items to the inventory, returns by reference
         
-        const Inventory& viewInventory() const; // lets us VIEW the inventory.
+        Inventory viewInventory() const; // lets us VIEW the inventory.
 };
 
 #endif

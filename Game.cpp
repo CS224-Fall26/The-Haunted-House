@@ -44,7 +44,7 @@ void Game::run()
             running = false;   // choice 0 = Quit
         }
     }
-    cout << "Goodbye."<endl;
+    cout << "Goodbye."<<endl;
 }
 
 
@@ -267,7 +267,7 @@ void Game::showMapAndHelp() const
 // Returns true if the player wants to go back to the main menu.
 bool Game::confirmReturnToMenu() const 
 {
-    cout << "Return to the main menu? Your progress will be lost."<<cout;
+    cout << "Return to the main menu? Your progress will be lost."<<endl;
     cout << " 1. Yes\n 2. No\nChoice: ";
     int choice= readInt(1, 2);
     return choice == 1;
