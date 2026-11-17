@@ -34,4 +34,12 @@ const int CHOICE_TRUTH = 1;    // tell Eleanor the truth
 const int CHOICE_BURN = 2;    // burn the confession
 const int CHOICE_RUN = 3;     // run away (leave by the front door)
 
+// Array sizes:
+// The world classes store their things in fixed-size arrays. These numbers are
+// the maximum sizes. They are bigger than we will ever need.
+const int MAX_ROOMS = 5;               // the mansion has 5 rooms
+const int MAX_WORLD_ITEMS = 10;        // we only have 7 items in the whole game
+const int MAX_OBJECTS_PER_ROOM = 10;   // doors, puzzles, mirror, ghost...
+const int MAX_ITEMS_PER_ROOM = 10;     // items lying on the floor of one room
+
 #endif
