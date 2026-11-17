@@ -1,4 +1,3 @@
-// Mirror.hpp  -  written by Hijab Asif Malik (Member B). See Mirror.cpp for the full viva notes.
 #ifndef MIRROR_HPP
 #define MIRROR_HPP
 

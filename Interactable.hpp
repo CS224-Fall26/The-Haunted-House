@@ -1,58 +1,43 @@
-// Interactable.hpp  -  written by Hijab Asif Malik (Member B). See Interactable.cpp for the full viva notes.
 #ifndef INTERACTABLE_HPP
 #define INTERACTABLE_HPP
 
 #include <string>
 
-// Forward declarations: interact() only takes these by reference, so the
-// header does not need their full definitions. The real #includes go in the
-// .cpp files of the derived classes that actually use Player and GameState.
+// Forward declarations to avoid unnecessary includes.
 class Player;
 class GameState;
 
-// Interactable is the ABSTRACT BASE CLASS of everything the player can
-// interact with in a room: Door, Mirror, Ghost and Puzzle.
-// It is abstract because interact() is a PURE VIRTUAL function (= 0):
-// "an object you can interact with" is only an idea, so nobody can create a
-// plain Interactable. Only the derived classes can be created.
+// Abstract base class for Door, Mirror, Ghost, and Puzzle.
+// Uses pure virtual interact() to allow polymorphism.
 class Interactable
 {
 public:
-    // Constructors (both use member initializer lists and both count the object)
+    // Constructors initialize and count objects.
     Interactable();
     Interactable(const std::string& name, const std::string& description);
 
-    // VIRTUAL destructor: Room deletes its objects through Interactable*
-    // pointers. Without "virtual", deleting a Door through an Interactable*
-    // would run only this destructor, not Door's (undefined behaviour).
+    // Virtual destructor ensures proper cleanup of derived objects.
     virtual ~Interactable();
 
-    // Copying is switched off. Every Interactable is created once by Mansion
-    // and owned by exactly one Room; a copy would make a second object that
-    // nobody owns, and it would not be counted correctly.
+    // Disable copying to avoid ownership and memory issues.
     Interactable(const Interactable& other) = delete;
     Interactable& operator=(const Interactable& other) = delete;
 
-    // THE common interface. Each derived class overrides this with its own
-    // behaviour, and Room/Game call it through an Interactable* pointer
-    // (runtime polymorphism). "= 0" makes it pure virtual.
+    // Pure virtual function implemented by each derived class.
     virtual void interact(Player& player, GameState& state) = 0;
 
-    // Getters are const: reading the name never changes the object.
-    // They return a const reference so the string is not copied.
+    // Const getters return references without copying strings.
     const std::string& getName() const;
     const std::string& getDescription() const;
 
-    // STATIC: belongs to the class, not to one object. It reports how many
-    // Interactables exist right now. After the game returns to the main menu
-    // it should be 0, which proves every object was deleted (no leaks).
+    // Static function returns the total number of existing objects.
     static int getObjectCount();
 
 private:
-    std::string name;          // e.g. "Bedroom Door"
-    std::string description;   // e.g. "A heavy oak door with a brass keyhole."
+    std::string name;          // Object name
+    std::string description;   // Object description
 
-    static int objectCount;    // ONE shared counter for all Interactables
+    static int objectCount;    // Shared object counter
 };
 
 #endif

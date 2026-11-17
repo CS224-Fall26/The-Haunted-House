@@ -1,22 +1,15 @@
-// Puzzle.hpp  -  written by Hijab Asif Malik (Member B). See Puzzle.cpp for the full viva notes.
 #ifndef PUZZLE_HPP
 #define PUZZLE_HPP
 
 #include <string>
 #include "Interactable.hpp"
 
-// Forward declaration: Puzzle only stores a POINTER to its reward Item.
+// Forward declaration since only an Item pointer is needed.
 class Item;
 
-// Puzzle IS-A Interactable, and it is ABSTRACT too (checkAnswer is pure virtual).
-//
-// DESIGN PATTERN: TEMPLATE METHOD
-//   interact() is the "template method": it fixes the ORDER of the steps that
-//   every puzzle follows (already solved? clue found? ask, check, reward or
-//   count the failure, hint after 3 tries). This code is written ONCE here.
-//   checkAnswer() is the one step that differs, so each subclass fills it in:
-//     RiddlePuzzle compares a word, CodePuzzle compares a number code.
-//   Adding a new kind of puzzle later = write one small checkAnswer().
+// Abstract class that inherits from Interactable.
+// Uses the Template Method pattern to handle common puzzle steps.
+// RiddlePuzzle checks words, while CodePuzzle checks codes.
 class Puzzle : public Interactable
 {
 public:
@@ -25,27 +18,25 @@ public:
            const std::string& prompt, const std::string& hint,
            const std::string& requiredFlag, Item* reward);
 
-    // THE TEMPLATE METHOD (overrides Interactable::interact).
+    // Handles the common puzzle-solving process.
     void interact(Player& player, GameState& state) override;
 
-    // THE STEP SUBCLASSES FILL IN. Pure virtual, so Puzzle stays abstract.
-    // const: checking an answer never changes the puzzle.
+    // Pure virtual function implemented by each puzzle type.
+    // const prevents changes to the puzzle.
     virtual bool checkAnswer(const std::string& answer) const = 0;
 
     bool isSolved() const;
     int getAttempts() const;
 
-    // No destructor needed: Puzzle owns nothing on the heap.
-    // AGGREGATION: Puzzle only POINTS to its reward Item. Mansion owns every
-    // Item and deletes it, so Puzzle must never delete the reward.
+    // No destructor needed since Mansion owns the reward Items.
 
 private:
-    std::string prompt;         // the question shown to the player
-    std::string hint;           // shown after 3 wrong answers
-    std::string requiredFlag;   // clue needed first; "" = no clue needed
-    Item* reward;               // given on success; nullptr = no reward
+    std::string prompt;         // Puzzle question
+    std::string hint;           // Hint after 3 wrong attempts
+    std::string requiredFlag;   // Required clue, empty if none
+    Item* reward;               // Reward pointer, nullptr if none
     bool solved;
-    int attempts;               // number of WRONG answers so far
+    int attempts;               // Wrong answer count
 };
 
 #endif

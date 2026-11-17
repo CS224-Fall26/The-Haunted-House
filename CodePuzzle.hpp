@@ -1,4 +1,3 @@
-// CodePuzzle.hpp  -  written by Hijab Asif Malik (Member B). See CodePuzzle.cpp for the full viva notes.
 #ifndef CODEPUZZLE_HPP
 #define CODEPUZZLE_HPP
 
