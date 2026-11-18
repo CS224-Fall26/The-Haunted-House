@@ -69,7 +69,7 @@ int readInt(int min, int max) {
         }
 
         // Invalid input so tell the player and loop around to ask again.
-        std::cout << "Please enter a number between " << min << " and " << max << "."<<endl;
-        std::cout << "Choice: ";
+        cout << "Please enter a number between " << min << " and " << max << "."<<endl;
+        cout << "Choice: ";
     }
 }

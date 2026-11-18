@@ -74,7 +74,7 @@ void Room::describe() const
     cout << "Items here: ";
     if (itemCount == 0) 
     {
-        std::cout << "none";
+        cout << "none";
     }
     else
     {
@@ -82,7 +82,7 @@ void Room::describe() const
         {
             if (i > 0) 
             {
-                std::cout << ", ";   // comma sepearated list of item names (not before the first)
+                cout << ", ";   // comma sepearated list of item names (not before the first)
             }
             cout << items[i]->getName();
         }
@@ -92,7 +92,7 @@ void Room::describe() const
     cout << "Objects here: ";
     if (objectCount == 0) 
     {
-        std::cout << "none";
+        cout << "none";
     }
     else
     {
@@ -122,7 +122,7 @@ void Room::listItems() const
 {
     for (int i = 0; i < itemCount; i++) 
     {
-        std::cout << "  " << (i + 1) << ". " << items[i]->getName() << endl;
+        cout << "  " << (i + 1) << ". " << items[i]->getName() << endl;
     }
 }
 

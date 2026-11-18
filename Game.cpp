@@ -117,7 +117,7 @@ void Game::endSession()
     cout << "\nReturning to the main menu...\n";
 
     //0 count shows everthing is deleted and no memory leaks
-    std::cout << "[Check] Interactable objects still alive: "<< Interactable::getObjectCount() << " (should be 0)"<<endl;
+    cout << "[Check] Interactable objects still alive: "<< Interactable::getObjectCount() << " (should be 0)"<<endl;
 }
 
 // Game loop: (one while loop is one turn)
@@ -185,18 +185,19 @@ void Game::playGame()
 }
 
 void Game::showRoomMenu() const {
-    std::cout << "-------------------------------------------------------\n";
-    std::cout << " 1. Look around\n";
-    std::cout << " 2. Interact with an object\n";
-    std::cout << " 3. Pick up an item\n";
-    std::cout << " 4. Open inventory\n";
-    std::cout << " 5. Map and help\n";
-    std::cout << " 0. Return to main menu\n";
-    std::cout << "-------------------------------------------------------\n";
-    std::cout << "Choice: ";
+    cout << "-------------------------------------------------------\n";
+    cout << " 1. Look around\n";
+    cout << " 2. Interact with an object\n";
+    cout << " 3. Pick up an item\n";
+    cout << " 4. Open inventory\n";
+    cout << " 5. Map and help\n";
+    cout << " 0. Return to main menu\n";
+    cout << "-------------------------------------------------------\n";
+    cout << "Choice: ";
 }
 
 // What each menu option does:
+
 void Game::interactWithObject() 
 {
     Room* room = player.getCurrentRoom();

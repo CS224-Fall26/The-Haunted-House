@@ -11,7 +11,7 @@ class Room;   // forward declaration: Player points at a Room
 class Player 
 {
     private:
-        std::string name;
+        string name;
         Room* currentRoom;     // points at the room the player is in currently
         Inventory inventory;   // the player's bag. It is created with the Player and destroyed with it.
 
