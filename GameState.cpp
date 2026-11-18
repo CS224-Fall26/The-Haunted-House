@@ -2,54 +2,71 @@
 #include "GameState.hpp"
 #include "GameConstants.hpp"
 
-// Default constructor: starts with an empty list of flags and no final choice.
+// Starts with no flags and no final choice.
 GameState::GameState()
     : flags(),
+      flagCount(0),
       finalChoice(CHOICE_NONE)
 {
 }
 
-// Parameterized constructor: starts with a given final choice.
+// Starts with no flags and the given final choice.
 GameState::GameState(int finalChoice)
     : flags(),
+      flagCount(0),
       finalChoice(finalChoice)
 {
 }
 
-// Function overload 1: adds a flag only if it does not already exist.
+// Adds a flag only if it is not already stored.
 void GameState::setFlag(const std::string& name)
 {
-    if (!hasFlag(name))
+    if (hasFlag(name))
     {
-        flags.push_back(name);
+        return;
     }
+
+    // Do not add more flags once the array is full.
+    if (flagCount >= MAX_FLAGS)
+    {
+        return;
+    }
+
+    flags[flagCount] = name;
+    flagCount++;
 }
 
-// Function overload 2: adds or removes a flag based on the Boolean value.
+// Adds or removes a flag depending on the Boolean value.
 void GameState::setFlag(const std::string& name, bool value)
 {
     if (value)
     {
-        setFlag(name); // Reuses the first overload to avoid duplicate code.
+        setFlag(name);
         return;
     }
 
-    // Search for the flag and remove it if it exists.
-    for (int i = 0; i < (int)flags.size(); i++)
+    // Find the flag that needs to be removed.
+    for (int i = 0; i < flagCount; i++)
     {
         if (flags[i] == name)
         {
-            flags.erase(flags.begin() + i);
+            // Shift the remaining flags one position to the left.
+            for (int j = i; j < flagCount - 1; j++)
+            {
+                flags[j] = flags[j + 1];
+            }
+
+            flagCount--;
+            flags[flagCount] = "";
             return;
         }
     }
 }
 
-// Checks whether a particular flag exists in the vector.
-// const means this function does not modify GameState.
+// Checks whether a flag exists in the array.
 bool GameState::hasFlag(const std::string& name) const
 {
-    for (int i = 0; i < (int)flags.size(); i++)
+    for (int i = 0; i < flagCount; i++)
     {
         if (flags[i] == name)
         {
@@ -60,10 +77,10 @@ bool GameState::hasFlag(const std::string& name) const
     return false;
 }
 
-// Returns the total number of recorded flags.
+// Returns the number of flags currently stored.
 int GameState::getFlagCount() const
 {
-    return (int)flags.size();
+    return flagCount;
 }
 
 // Saves the player's final decision.
@@ -78,9 +95,14 @@ int GameState::getFinalChoice() const
     return finalChoice;
 }
 
-// Clears the previous progress when a new game starts.
+// Removes all stored flags and resets the final choice.
 void GameState::reset()
 {
-    flags.clear();
+    for (int i = 0; i < flagCount; i++)
+    {
+        flags[i] = "";
+    }
+
+    flagCount = 0;
     finalChoice = CHOICE_NONE;
 }

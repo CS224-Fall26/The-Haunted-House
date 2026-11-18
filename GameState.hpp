@@ -1,37 +1,34 @@
-
 #ifndef GAMESTATE_HPP
 #define GAMESTATE_HPP
 
 #include <string>
-#include <vector>
 
-// Stores the player's progress, including discovered clues and final choice.
 class GameState
 {
 public:
-    GameState(); // Starts with no flags and CHOICE_NONE.
+    GameState();
     explicit GameState(int finalChoice);
 
-    // Function overloading: add a flag or add/remove it using a bool value.
+    // Adds a flag or adds/removes it depending on the value.
     void setFlag(const std::string& name);
     void setFlag(const std::string& name, bool value);
 
-    // Checks whether a clue or progress flag has been recorded.
+    // Checks the stored flags and returns the current count.
     bool hasFlag(const std::string& name) const;
-
     int getFlagCount() const;
 
+    // Stores and returns the player's final choice.
     void setFinalChoice(int choice);
     int getFinalChoice() const;
 
-    // Clears all progress and resets the final choice for a new game.
+    // Clears all progress for a new game.
     void reset();
 
 private:
-    // Stores discovered clues, such as "diaryRead" and "letterRead".
-    std::vector<std::string> flags;
+    static const int MAX_FLAGS = 20; // Maximum number of flags that can be stored.
 
-    // Stores the player's ending choice.
+    std::string flags[MAX_FLAGS]; // Fixed-size array for storing clue flags.
+    int flagCount;                // Number of flags currently stored.
     int finalChoice;
 };
 
